@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Criptografia</title>
+</head>
+<body>
+    
+    <h1>Criptografia</h1>
+    <label for="textoOriginal">Texto original:</label>
+    <br />
+    <input type="text" id="textoOriginal" />
+    <br /><br />
+    <button onclick="criptografar()">Criptografar</button>
+    <button onclick="descriptografar()">Descriptografar</button>
+    <button onclick="copiar()">Copiar</button>
+    <br /><br />
+    <label for="resultado">Resultado:</label>
+    <br />
+    <input type="text" id="resultado" readonly />
+
+    <script>
+      function copiar() {
+        var resultado = document.querySelector("#resultado").value;
+        navigator.clipboard.writeText(resultado);
+        alert("Texto copiado para a área de transferência!");
+      }
+
+      function criptografar() {
+        var textoOriginal = document.querySelector("#textoOriginal").value;
+        var textoCriptografado = "";
+
+        for (var i = 0; i < textoOriginal.length; i++) {
+          var letra = textoOriginal[i];
+          var letraCriptografada = "";
+
+          if (letra === "e") {
+            letraCriptografada = "enter";
+          } else if (letra === "i") {
+            letraCriptografada = "imes";
+          } else if (letra === "a") {
+            letraCriptografada = "ai";
+          } else if (letra === "o") {
+            letraCriptografada = "ober";
+          } else if (letra === "u") {
+            letraCriptografada = "ufat";
+          } else {
+            letraCriptografada = letra;
+          }
+
+          textoCriptografado += letraCriptografada;
+        }
+
+        document.querySelector("#resultado").value = textoCriptografado;
+      }
+
+      function descriptografar() {
+        var textoCriptografado = document.querySelector("#resultado").value;
+        var textoOriginal = "";
+
+        var i = 0;
+        while (i < textoCriptografado.length) {
+          var letraCriptografada = "";
+          if (textoCriptografado.substr(i, 5) === "enter") {
+            letraCriptografada = "e";
+            i += 5;
+          } else if (textoCriptografado.substr(i, 4) === "imes") {
+            letraCriptografada = "i";
+            i += 4;
+          } else if (textoCriptografado.substr(i, 2) === "ai") {
+            letraCriptografada = "a";
+            i += 2;
+          } else if (textoCriptografado.substr(i, 4) === "ober") {
+            letraCriptografada = "o";
+            i += 4;
+          } else if (textoCriptografado.substr(i, 4) === "ufat") {
+            letraCriptografada = "u";
+            i += 4;
+          } else {
+            letraCriptografada = textoCriptografado[i];
+            i++;
+          }
+
+          textoOriginal += letraCriptografada;
+        }
+
+        document.querySelector("#textoOriginal").value = textoOriginal;
+        document.querySelector("#resultado").value = textoOriginal;
+      }
+    </script>
+  
+  </body>
+</html>
